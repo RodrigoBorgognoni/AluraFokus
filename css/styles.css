@@ -28,6 +28,15 @@
         border-radius: 50%;
         overflow: hidden;
     }
+    .app__title {
+        color: rgb(240, 194, 183);
+        font-weight: 300;
+    }
+    .app__title-strong{
+        color: rgb(219, 32, 32);
+        font-weight: 900;
+        font-style: italic;
+    }
 }
 
 * {
