@@ -5,9 +5,12 @@ const longoBtn = document.querySelector(".app__card-button--longo");
 const titulo = document.querySelector(".app__title");
 const botoes = document.querySelectorAll(".app__card-button");
 const musicaInput = document.querySelector("#alternar-musica");
+const startBtn = document.getElementById('start-pause');
 
 let musica = new Audio();
 musica.loop = true;
+
+let tempoDecorrido = 5;
 
 /*
 play(): inicia a reprodução do áudio;
@@ -47,7 +50,6 @@ let texto = document.querySelector(".app__title");
 const timerFoco = 1500;
 const timerCurto = 300;
 const timerLongo = 900;
-const timerEterno = 39960;
 
 focoBtn.addEventListener("click", () => {
     alterarContexto("foco", "foco.png");
@@ -62,11 +64,6 @@ curtoBtn.addEventListener("click", () => {
 longoBtn.addEventListener("click", () => {
     alterarContexto("descanso-longo", "descanso-longo.png");
     longoBtn.classList.add("active");
-});
-
-eternoBtn.addEventListener("click", () => {
-    alterarContexto("descanso-eterno", "descanso-eterno.png");
-    eternoBtn.classList.add("active");
 });
 
 function alterarContexto(contexto, imagem) {
@@ -90,16 +87,14 @@ function alterarContexto(contexto, imagem) {
             titulo.innerHTML = `Hora de voltar à superfície<br/>
             <strong class="app__title-strong">Faça uma pausa longa.</strong>`;
             break;
-        case "descanso-eterno":
-            titulo.innerHTML = "";
-            //titulo.innerHTML = `Lasciate ogni speranza voi ch'entrate!<br/>
-            //<strong class="app__title-strong">Memento Mori</strong>`;
-            break;
         default:
             break;
     }
 }
 
-function validarSons(sons) {
-    document.querySelectorAll(".app__card-button");
+const contagemRegressiva = () =>{
+    tempoDecorrido -= 1
+    console.log(`Temporizador: ${tempoDecorrido}`)
 }
+
+startBtn.addEventListener('click', contagemRegressiva);
