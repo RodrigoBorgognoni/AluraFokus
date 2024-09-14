@@ -5,12 +5,17 @@ const longoBtn = document.querySelector(".app__card-button--longo");
 const titulo = document.querySelector(".app__title");
 const botoes = document.querySelectorAll(".app__card-button");
 const musicaInput = document.querySelector("#alternar-musica");
-const startBtn = document.getElementById('start-pause');
+const startBtn = document.getElementById("start-pause");
 
 let musica = new Audio();
 musica.loop = true;
 
-let tempoDecorrido = 5;
+const audioPlay = new Audio('/sons/play.wav');
+const audioPausa = new Audio('/sons/pause.mp3');
+const audioFim = new Audio('./sons/beep.mp3')
+
+let tempoDecorrido = 10;
+let intervalo = null;
 
 /*
 play(): inicia a reprodução do áudio;
@@ -92,9 +97,34 @@ function alterarContexto(contexto, imagem) {
     }
 }
 
-const contagemRegressiva = () =>{
-    tempoDecorrido -= 1
-    console.log(`Temporizador: ${tempoDecorrido}`)
+
+startBtn.addEventListener("click", iniciarPausar);
+
+const contagemRegressiva = () => {
+    if (tempoDecorrido <= 0) {
+        audioFim.volume = 0.5;
+        audioFim.currentTime = 3;
+        audioFim.play();
+        zerar();
+        console.log(`Temporizador: ${tempoDecorrido}`);
+        return;
+    }
+    console.log(`Temporizador: ${tempoDecorrido}`);
+    tempoDecorrido -= 1;
+};
+
+function iniciarPausar() {
+    if (intervalo) {
+        zerar();
+        audioPausa.volume = 1;
+        audioPausa.play();
+        return;
+    }
+    audioPlay.play();
+    intervalo = setInterval(contagemRegressiva, 1000);
 }
 
-startBtn.addEventListener('click', contagemRegressiva);
+function zerar() {
+    clearInterval(intervalo);
+    intervalo = null;
+}
